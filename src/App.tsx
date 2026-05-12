@@ -52,6 +52,7 @@ function App() {
           <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
             <li><a href="#sobre" onClick={() => setIsMenuOpen(false)}>{t('nav.about')}</a></li>
             <li><a href="#funcionalidades" onClick={() => setIsMenuOpen(false)}>{t('nav.features')}</a></li>
+            <li><a href="#incubadora" onClick={() => setIsMenuOpen(false)}>{t('nav.incubator')}</a></li>
             <li><a href="#servicos" onClick={() => setIsMenuOpen(false)}>{t('nav.services')}</a></li>
             <li><a href="#contato" onClick={() => setIsMenuOpen(false)}>{t('nav.contact')}</a></li>
             <li>
@@ -162,6 +163,44 @@ function App() {
         </div>
       </section>
 
+      {/* Incubadora de Projetos */}
+      <section id="incubadora" className="section bg-alt">
+        <div className="container">
+          <div className="glass" style={{ padding: '60px', borderRadius: '24px', border: '1px solid var(--defol-blue-light)' }}>
+            <div className="section-header text-center">
+              <h2 className="gradient-text">{t('incubator.title')}</h2>
+              <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
+                {t('incubator.subtitle')}
+              </p>
+            </div>
+
+            <div className="cards-grid" style={{ marginTop: '40px' }}>
+              <div className="card glass interactive">
+                <div className="icon">📉</div>
+                <h3>{t('incubator.card1.title')}</h3>
+                <p>{t('incubator.card1.desc')}</p>
+              </div>
+              <div className="card glass interactive">
+                <div className="icon">🤝</div>
+                <h3>{t('incubator.card2.title')}</h3>
+                <p>{t('incubator.card2.desc')}</p>
+              </div>
+              <div className="card glass interactive">
+                <div className="icon">🚀</div>
+                <h3>{t('incubator.card3.title')}</h3>
+                <p>{t('incubator.card3.desc')}</p>
+              </div>
+            </div>
+
+            <div className="text-center" style={{ marginTop: '50px' }}>
+              <a href="#contato" className="btn-primary large">
+                {t('incubator.cta')}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Parallax Interlude */}
       <Parallax speed={-10}>
         <div style={{
@@ -195,27 +234,6 @@ function App() {
         </div>
       </section>
 
-      {/* Parceiros (Comentado para uso futuro)
-      <section className="section">
-        <div className="container">
-          <div className="section-header text-center">
-            <h2>{t('partners.title')}</h2>
-            <p>{t('partners.subtitle')}</p>
-          </div>
-          
-          <div className="cards-grid" style={{ justifyContent: 'center' }}>
-            {['Parceiro A', 'Parceiro B', 'Parceiro C'].map((partner, idx) => (
-              <div key={idx} className="card glass interactive" style={{ textAlign: 'center' }}>
-                <h3 style={{ margin: 0, color: 'var(--text-main)' }}>{partner}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
-
-      {/* CTA Section (Removido) */}
-
       {/* Footer / Contato Integrado */}
       <footer id="contato">
         <div className="container">
@@ -233,6 +251,7 @@ function App() {
               <ul>
                 <li><a href="#sobre">{t('nav.about')}</a></li>
                 <li><a href="#funcionalidades">{t('nav.features')}</a></li>
+                <li><a href="#incubadora">{t('nav.incubator')}</a></li>
                 <li><a href="#servicos">{t('nav.services')}</a></li>
               </ul>
             </div>
