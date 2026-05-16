@@ -43,7 +43,7 @@ function App() {
       <nav className="navbar glass">
         <div className="nav-content">
           <div className="logo" style={{ cursor: 'pointer' }} onClick={() => window.scrollTo(0,0)}>
-            <img src="/images/logo.png" alt="D" style={{ height: '32px' }} />
+            <img src="./images/logo.png" alt="D" style={{ height: '32px' }} />
             <span>DefolTech</span>
           </div>
           <div className="mobile-menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -98,7 +98,7 @@ function App() {
             <div className="hero-graphic">
               {/* Logo DefolTech isolada sem o card/fundo de vidro */}
               <img 
-                src="/images/logo.png" 
+                src="./images/logo.png" 
                 alt="DefolTech Logo" 
                 style={{ 
                   maxWidth: '80%', 
@@ -240,7 +240,7 @@ function App() {
           <div className="footer-grid">
             <div className="footer-col">
               <div className="logo" style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <img src="/images/logo.png" alt="D" style={{ height: '28px' }} />
+                <img src="./images/logo.png" alt="D" style={{ height: '28px' }} />
                 <span>DefolTech</span>
               </div>
               <p>{t('footer.description' as any) || 'Transformando ideias em software. Excelência, inovação e agilidade para o seu negócio.'}</p>
