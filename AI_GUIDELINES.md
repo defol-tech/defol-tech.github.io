@@ -15,4 +15,5 @@ Este documento define as regras críticas para manutenção do site instituciona
 3.  **Tecnologias**: React + Vite + Vanilla CSS. Evite dependências pesadas de UI a menos que solicitado.
 
 ## 📝 Histórico de Solução (Learning Log)
-- **MIME Type Error**: Resolvido garantindo o uso de caminhos relativos e a configuração correta do GitHub Actions como fonte de deploy.
+- **MIME Type Error e Configuração de Root**: O erro original ocorria porque caminhos relativos (como `./src/main.tsx` e `base: './'`) confundiam o Vite durante o deploy via Actions em repositórios de usuário (que rodam na raiz `/`). A solução foi restaurar os caminhos absolutos padrões do Vite.
+- **⏱️ Delay de Propagação (CDN Cache)**: Repositórios do tipo `username.github.io` sofrem com cache agressivo do GitHub Pages. Mesmo após o GitHub Actions reportar "Success", o site pode levar de 2 a 10 minutos para refletir a nova versão. **Ao realizar manutenções, SEMPRE considere esse tempo e instrua o teste via aba anônima ou `Ctrl + F5` antes de assumir que o deploy falhou.**
