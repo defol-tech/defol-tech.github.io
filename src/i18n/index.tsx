@@ -86,7 +86,19 @@ const translations = {
     'footer.nav_title': 'Navegação',
     'footer.social_title': 'Redes Sociais',
     'footer.contact_title': 'Contato',
-    'contact.address': 'Rua Heitor Stockler de França, 396 - Curitiba, PR'
+    'contact.address': 'Rua Heitor Stockler de França, 396 - Curitiba, PR',
+    'brdd.async.title': 'BRDD Async',
+    'brdd.async.status': 'Concluído',
+    'brdd.async.desc': 'Extensão para orquestração de fluxos assíncronos e processos distribuídos.',
+    'brdd.async.view_more': 'Ver Documentação',
+    'brdd.async.page.subtitle': 'Elevando a rastreabilidade e consistência em sistemas distribuídos.',
+    'brdd.async.features.title': 'Recursos Principais',
+    'brdd.async.features.f1': 'Rastreabilidade Total',
+    'brdd.async.features.f1.desc': 'Saiba exatamente em que passo seu processo está com o FlowContext.',
+    'brdd.async.features.f2': 'Gating de Segurança',
+    'brdd.async.features.f2.desc': 'Impeça execuções fora de ordem com validação automática de pré-requisitos.',
+    'brdd.async.features.f3': 'Despacho Semântico',
+    'brdd.async.features.f3.desc': 'Engine agnóstica que delega lógica para UseCases especializados.'
   },
   en: {
     'nav.about': 'About',
@@ -171,7 +183,19 @@ const translations = {
     'footer.nav_title': 'Navigation',
     'footer.social_title': 'Social Networks',
     'footer.contact_title': 'Contact',
-    'contact.address': '396 Heitor Stockler de França St - Curitiba, PR'
+    'contact.address': '396 Heitor Stockler de França St - Curitiba, PR',
+    'brdd.async.title': 'BRDD Async',
+    'brdd.async.status': 'Completed',
+    'brdd.async.desc': 'Extension for asynchronous flow orchestration and distributed processes.',
+    'brdd.async.view_more': 'View Documentation',
+    'brdd.async.page.subtitle': 'Elevating traceability and consistency in distributed systems.',
+    'brdd.async.features.title': 'Key Features',
+    'brdd.async.features.f1': 'Full Traceability',
+    'brdd.async.features.f1.desc': 'Know exactly which step your process is in with FlowContext.',
+    'brdd.async.features.f2': 'Security Gating',
+    'brdd.async.features.f2.desc': 'Prevent out-of-order execution with automatic prerequisite validation.',
+    'brdd.async.features.f3': 'Semantic Dispatch',
+    'brdd.async.features.f3.desc': 'Agnostic engine that delegates logic to specialized UseCases.'
   }
 };
 

@@ -1,4 +1,3 @@
-import { Parallax } from 'react-scroll-parallax';
 import { ParticlesBackground } from './components/ParticlesBackground';
 import { useTranslation } from './i18n';
 import { useState } from 'react';
@@ -6,6 +5,7 @@ import { useState } from 'react';
 function App() {
   const { t, language, setLanguage } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<'home' | 'async'>('home');
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(e.target.value as 'pt' | 'en');
@@ -25,6 +25,12 @@ function App() {
     { key: 'f11', icon: '🤝' },
     { key: 'f12', icon: '⏰' },
   ];
+
+  const navigateTo = (view: 'home' | 'async') => {
+    setCurrentView(view);
+    window.scrollTo(0, 0);
+    setIsMenuOpen(false);
+  };
 
   return (
     <>
@@ -50,11 +56,12 @@ function App() {
             {isMenuOpen ? '✕' : '☰'}
           </div>
           <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-            <li><a href="#sobre" onClick={() => setIsMenuOpen(false)}>{t('nav.about')}</a></li>
-            <li><a href="#funcionalidades" onClick={() => setIsMenuOpen(false)}>{t('nav.features')}</a></li>
-            <li><a href="#incubadora" onClick={() => setIsMenuOpen(false)}>{t('nav.incubator')}</a></li>
-            <li><a href="#servicos" onClick={() => setIsMenuOpen(false)}>{t('nav.services')}</a></li>
-            <li><a href="#contato" onClick={() => setIsMenuOpen(false)}>{t('nav.contact')}</a></li>
+            <li><a href="#sobre" onClick={() => navigateTo('home')}>{t('nav.about')}</a></li>
+            <li><a href="#funcionalidades" onClick={() => navigateTo('home')}>{t('nav.features')}</a></li>
+            <li><a href="#brdd" onClick={() => navigateTo('home')}>BRDD</a></li>
+            <li><a href="#incubadora" onClick={() => navigateTo('home')}>{t('nav.incubator')}</a></li>
+            <li><a href="#servicos" onClick={() => navigateTo('home')}>{t('nav.services')}</a></li>
+            <li><a href="#contato" onClick={() => navigateTo('home')}>{t('nav.contact')}</a></li>
             <li>
               <select 
                 value={language} 
@@ -78,161 +85,260 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <header className="hero">
-        <div className="hero-bg"></div>
-        <div className="container">
-          <div className="hero-content-wrapper">
-            <div className="hero-text">
-              <h1 className="hero-title">
-                {t('hero.title.pre')} <span className="gradient-text">{t('hero.title.highlight')}</span>
-              </h1>
-              <p className="hero-subtitle">
-                {t('hero.subtitle')}
-              </p>
-              <div className="hero-actions">
-                <a href="#servicos" className="btn-primary large">{t('hero.btn.services')}</a>
-                <a href="#contato" className="btn-secondary large">{t('hero.btn.contact')}</a>
+      {currentView === 'home' ? (
+        <>
+          {/* Hero Section */}
+          <header className="hero">
+            <div className="hero-bg"></div>
+            <div className="container">
+              <div className="hero-content-wrapper">
+                <div className="hero-text">
+                  <h1 className="hero-title">
+                    {t('hero.title.pre')} <span className="gradient-text">{t('hero.title.highlight')}</span>
+                  </h1>
+                  <p className="hero-subtitle">
+                    {t('hero.subtitle')}
+                  </p>
+                  <div className="hero-actions">
+                    <a href="#servicos" className="btn-primary large">{t('hero.btn.services')}</a>
+                    <a href="#contato" className="btn-secondary large">{t('hero.btn.contact')}</a>
+                  </div>
+                </div>
+                <div className="hero-graphic">
+                  <img 
+                    src="./images/logo.png" 
+                    alt="DefolTech Logo" 
+                    style={{ 
+                      maxWidth: '80%', 
+                      maxHeight: '300px', 
+                      animation: 'float 6s ease-in-out infinite' 
+                    }} 
+                  />
+                </div>
               </div>
             </div>
-            <div className="hero-graphic">
-              {/* Logo DefolTech isolada sem o card/fundo de vidro */}
-              <img 
-                src="./images/logo.png" 
-                alt="DefolTech Logo" 
-                style={{ 
-                  maxWidth: '80%', 
-                  maxHeight: '300px', 
-                  animation: 'float 6s ease-in-out infinite' 
-                }} 
-              />
-            </div>
-          </div>
-        </div>
-      </header>
+          </header>
 
-      {/* Missão, Visão e Valores */}
-      <section id="sobre" className="section bg-alt">
-        <div className="container">
-          <div className="glass" style={{ padding: '60px', borderRadius: '24px' }}>
-            <h2 className="text-center mb-4">{t('about.title')}</h2>
-            <p className="text-center mb-5" style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 3rem' }}>
-              {t('about.subtitle')}
-            </p>
+          {/* Missão, Visão e Valores */}
+          <section id="sobre" className="section bg-alt">
+            <div className="container">
+              <div className="glass" style={{ padding: '60px', borderRadius: '24px' }}>
+                <h2 className="text-center mb-4">{t('about.title')}</h2>
+                <p className="text-center mb-5" style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 3rem' }}>
+                  {t('about.subtitle')}
+                </p>
+                
+                <div className="cards-grid" style={{ marginTop: 0 }}>
+                  <div className="card glass interactive">
+                    <div className="icon">🎯</div>
+                    <h3>{t('about.mission.title')}</h3>
+                    <p>{t('about.mission.desc')}</p>
+                  </div>
+                  <div className="card glass interactive">
+                    <div className="icon">👁️</div>
+                    <h3>{t('about.vision.title')}</h3>
+                    <p>{t('about.vision.desc')}</p>
+                  </div>
+                  <div className="card glass interactive">
+                    <div className="icon">💎</div>
+                    <h3>{t('about.values.title')}</h3>
+                    <p>{t('about.values.desc')}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* BRDD Section */}
+          <section id="brdd" className="section">
+            <div className="container">
+              <div className="section-header text-center">
+                <h2 className="gradient-text">BRDD Ecosystem</h2>
+                <p>Nossa metodologia proprietária para engenharia de software de alta precisão.</p>
+              </div>
+
+              <div className="cards-grid">
+                <div className="card glass interactive" style={{ border: '1px solid var(--defol-blue-light)' }}>
+                  <div className="status-badge" style={{ 
+                    position: 'absolute', top: '10px', right: '10px', 
+                    background: 'rgba(0, 255, 0, 0.2)', color: '#00ff00',
+                    padding: '2px 8px', borderRadius: '10px', fontSize: '0.7rem'
+                  }}>
+                    {t('brdd.async.status')}
+                  </div>
+                  <div className="icon">⚡</div>
+                  <h3>{t('brdd.async.title')}</h3>
+                  <p>{t('brdd.async.desc')}</p>
+                  <button onClick={() => navigateTo('async')} className="btn-secondary" style={{ marginTop: '20px', width: '100%' }}>
+                    {t('brdd.async.view_more')}
+                  </button>
+                </div>
+                
+                <div className="card glass" style={{ opacity: 0.7 }}>
+                  <div className="status-badge" style={{ 
+                    position: 'absolute', top: '10px', right: '10px', 
+                    background: 'rgba(255, 255, 255, 0.1)', color: 'var(--text-muted)',
+                    padding: '2px 8px', borderRadius: '10px', fontSize: '0.7rem'
+                  }}>
+                    Beta
+                  </div>
+                  <div className="icon">⚙️</div>
+                  <h3>BRDD Async-BPMN</h3>
+                  <p>Orquestração visual baseada em JSON e diagramas de processo.</p>
+                </div>
+
+                <div className="card glass" style={{ opacity: 0.7 }}>
+                  <div className="status-badge" style={{ 
+                    position: 'absolute', top: '10px', right: '10px', 
+                    background: 'rgba(255, 255, 255, 0.1)', color: 'var(--text-muted)',
+                    padding: '2px 8px', borderRadius: '10px', fontSize: '0.7rem'
+                  }}>
+                    Planning
+                  </div>
+                  <div className="icon">☁️</div>
+                  <h3>BRDD Cloud</h3>
+                  <p>Infraestrutura como código orientada a regras de negócio.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Funcionalidades */}
+          <section id="funcionalidades" className="section bg-alt">
+            <div className="container">
+              <div className="section-header text-center">
+                <h2>{t('features.title')}</h2>
+                <p>{t('features.subtitle')}</p>
+              </div>
+
+              <div className="cards-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                {FEATURES.map((item) => (
+                  <div key={item.key} className="card glass interactive" style={{ padding: '20px' }}>
+                    <div className="icon" style={{ fontSize: '2rem', marginBottom: '10px' }}>{item.icon}</div>
+                    <h4 style={{ color: 'var(--text-main)', marginBottom: '8px' }}>
+                      {t(`features.${item.key}` as any)}
+                    </h4>
+                    <p style={{ fontSize: '0.85rem' }}>{t(`features.${item.key}.desc` as any)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Incubadora */}
+          <section id="incubadora" className="section">
+            <div className="container">
+              <div className="glass" style={{ padding: '60px', borderRadius: '24px', border: '1px solid var(--defol-blue-light)' }}>
+                <div className="section-header text-center">
+                  <h2 className="gradient-text">{t('incubator.title')}</h2>
+                  <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
+                    {t('incubator.subtitle')}
+                  </p>
+                </div>
+
+                <div className="cards-grid" style={{ marginTop: '40px' }}>
+                  <div className="card glass interactive">
+                    <div className="icon">📉</div>
+                    <h3>{t('incubator.card1.title')}</h3>
+                    <p>{t('incubator.card1.desc')}</p>
+                  </div>
+                  <div className="card glass interactive">
+                    <div className="icon">🤝</div>
+                    <h3>{t('incubator.card2.title')}</h3>
+                    <p>{t('incubator.card2.desc')}</p>
+                  </div>
+                  <div className="card glass interactive">
+                    <div className="icon">🚀</div>
+                    <h3>{t('incubator.card3.title')}</h3>
+                    <p>{t('incubator.card3.desc')}</p>
+                  </div>
+                </div>
+
+                <div className="text-center" style={{ marginTop: '50px' }}>
+                  <a href="#contato" className="btn-primary large">
+                    {t('incubator.cta')}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Serviços */}
+          <section id="servicos" className="section bg-alt">
+            <div className="container">
+              <div className="section-header text-center">
+                <h2>{t('services.title')}</h2>
+                <p>{t('services.subtitle')}</p>
+              </div>
+
+              <div className="cards-grid">
+                {[1, 2, 3, 4].map((num) => (
+                  <div key={num} className="card glass interactive">
+                    <div className="icon">{num === 1 ? '💻' : num === 2 ? '⚙️' : num === 3 ? '🏭' : '🤝'}</div>
+                    <h3 style={{ color: 'var(--defol-blue-light)' }}>{t(`services.s${num}.title` as any)}</h3>
+                    <p>{t(`services.s${num}.desc` as any)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      ) : (
+        <section className="section" style={{ minHeight: '80vh', paddingTop: '120px' }}>
+          <div className="container">
+            <button onClick={() => navigateTo('home')} className="btn-secondary" style={{ marginBottom: '30px' }}>
+              ← {language === 'pt' ? 'Voltar' : 'Back'}
+            </button>
             
-            <div className="cards-grid" style={{ marginTop: 0 }}>
-              <div className="card glass interactive">
-                <div className="icon">🎯</div>
-                <h3>{t('about.mission.title')}</h3>
-                <p>{t('about.mission.desc')}</p>
+            <div className="glass" style={{ padding: '60px', borderRadius: '24px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
+                <div style={{ fontSize: '3rem' }}>⚡</div>
+                <div>
+                  <h1 className="gradient-text" style={{ margin: 0 }}>{t('brdd.async.title')}</h1>
+                  <p style={{ color: '#00ff00', fontWeight: 'bold' }}>● {t('brdd.async.status')}</p>
+                </div>
               </div>
-              <div className="card glass interactive">
-                <div className="icon">👁️</div>
-                <h3>{t('about.vision.title')}</h3>
-                <p>{t('about.vision.desc')}</p>
-              </div>
-              <div className="card glass interactive">
-                <div className="icon">💎</div>
-                <h3>{t('about.values.title')}</h3>
-                <p>{t('about.values.desc')}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Funcionalidades */}
-      <section id="funcionalidades" className="section">
-        <div className="container">
-          <div className="section-header text-center">
-            <h2>{t('features.title')}</h2>
-            <p>{t('features.subtitle')}</p>
-          </div>
-
-          <div className="cards-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
-            {FEATURES.map((item) => (
-              <div key={item.key} className="card glass interactive" style={{ padding: '20px' }}>
-                <div className="icon" style={{ fontSize: '2rem', marginBottom: '10px' }}>{item.icon}</div>
-                <h4 style={{ color: 'var(--text-main)', marginBottom: '8px' }}>
-                  {t(`features.${item.key}` as any)}
-                </h4>
-                <p style={{ fontSize: '0.85rem' }}>{t(`features.${item.key}.desc` as any)}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Incubadora de Projetos */}
-      <section id="incubadora" className="section bg-alt">
-        <div className="container">
-          <div className="glass" style={{ padding: '60px', borderRadius: '24px', border: '1px solid var(--defol-blue-light)' }}>
-            <div className="section-header text-center">
-              <h2 className="gradient-text">{t('incubator.title')}</h2>
-              <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
-                {t('incubator.subtitle')}
+              
+              <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '40px' }}>
+                {t('brdd.async.page.subtitle')}
               </p>
+
+              <div className="cards-grid">
+                <div className="card glass">
+                  <div className="icon">🔍</div>
+                  <h3>{t('brdd.async.features.f1')}</h3>
+                  <p>{t('brdd.async.features.f1.desc')}</p>
+                </div>
+                <div className="card glass">
+                  <div className="icon">🛡️</div>
+                  <h3>{t('brdd.async.features.f2')}</h3>
+                  <p>{t('brdd.async.features.f2.desc')}</p>
+                </div>
+                <div className="card glass">
+                  <div className="icon">🤖</div>
+                  <h3>{t('brdd.async.features.f3')}</h3>
+                  <p>{t('brdd.async.features.f3.desc')}</p>
+                </div>
+              </div>
+
+              <div style={{ marginTop: '60px' }}>
+                <h2>{language === 'pt' ? 'Bibliotecas Disponíveis' : 'Available Libraries'}</h2>
+                <div style={{ display: 'flex', gap: '15px', marginTop: '20px', flexWrap: 'wrap' }}>
+                  <div className="glass" style={{ padding: '15px 25px', borderRadius: '12px' }}>Python (Extends Core)</div>
+                  <div className="glass" style={{ padding: '15px 25px', borderRadius: '12px', opacity: 0.6 }}>.NET (Coming Soon)</div>
+                  <div className="glass" style={{ padding: '15px 25px', borderRadius: '12px', opacity: 0.6 }}>TypeScript (Coming Soon)</div>
+                </div>
+              </div>
+
+              <div style={{ marginTop: '60px', textAlign: 'center' }}>
+                <a href="https://github.com/defol-tech" target="_blank" rel="noreferrer" className="btn-primary large">
+                  {language === 'pt' ? 'Ver no GitHub' : 'View on GitHub'}
+                </a>
+              </div>
             </div>
-
-            <div className="cards-grid" style={{ marginTop: '40px' }}>
-              <div className="card glass interactive">
-                <div className="icon">📉</div>
-                <h3>{t('incubator.card1.title')}</h3>
-                <p>{t('incubator.card1.desc')}</p>
-              </div>
-              <div className="card glass interactive">
-                <div className="icon">🤝</div>
-                <h3>{t('incubator.card2.title')}</h3>
-                <p>{t('incubator.card2.desc')}</p>
-              </div>
-              <div className="card glass interactive">
-                <div className="icon">🚀</div>
-                <h3>{t('incubator.card3.title')}</h3>
-                <p>{t('incubator.card3.desc')}</p>
-              </div>
-            </div>
-
-            <div className="text-center" style={{ marginTop: '50px' }}>
-              <a href="#contato" className="btn-primary large">
-                {t('incubator.cta')}
-              </a>
-            </div>
           </div>
-        </div>
-      </section>
-
-      {/* Parallax Interlude */}
-      <Parallax speed={-10}>
-        <div style={{
-          padding: '120px 20px',
-          textAlign: 'center',
-          position: 'relative'
-        }}>
-          <div className="glass" style={{ display: 'inline-block', padding: '30px 60px', borderRadius: '20px' }}>
-            <h2>{t('parallax.text')}</h2>
-          </div>
-        </div>
-      </Parallax>
-
-      {/* Serviços */}
-      <section id="servicos" className="section bg-alt">
-        <div className="container">
-          <div className="section-header text-center">
-            <h2>{t('services.title')}</h2>
-            <p>{t('services.subtitle')}</p>
-          </div>
-
-          <div className="cards-grid">
-            {[1, 2, 3, 4].map((num) => (
-              <div key={num} className="card glass interactive">
-                <div className="icon">{num === 1 ? '💻' : num === 2 ? '⚙️' : num === 3 ? '🏭' : '🤝'}</div>
-                <h3 style={{ color: 'var(--defol-blue-light)' }}>{t(`services.s${num}.title` as any)}</h3>
-                <p>{t(`services.s${num}.desc` as any)}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Footer / Contato Integrado */}
       <footer id="contato">
