@@ -5,7 +5,6 @@ import { useState } from 'react';
 function App() {
   const { t, language, setLanguage } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'async'>('home');
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(e.target.value as 'pt' | 'en');
@@ -25,12 +24,6 @@ function App() {
     { key: 'f11', icon: '🤝' },
     { key: 'f12', icon: '⏰' },
   ];
-
-  const navigateTo = (view: 'home' | 'async') => {
-    setCurrentView(view);
-    window.scrollTo(0, 0);
-    setIsMenuOpen(false);
-  };
 
   return (
     <>
@@ -56,12 +49,12 @@ function App() {
             {isMenuOpen ? '✕' : '☰'}
           </div>
           <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-            <li><a href="#sobre" onClick={() => navigateTo('home')}>{t('nav.about')}</a></li>
-            <li><a href="#funcionalidades" onClick={() => navigateTo('home')}>{t('nav.features')}</a></li>
-            <li><a href="#brdd" onClick={() => navigateTo('home')}>BRDD</a></li>
-            <li><a href="#incubadora" onClick={() => navigateTo('home')}>{t('nav.incubator')}</a></li>
-            <li><a href="#servicos" onClick={() => navigateTo('home')}>{t('nav.services')}</a></li>
-            <li><a href="#contato" onClick={() => navigateTo('home')}>{t('nav.contact')}</a></li>
+            <li><a href="#sobre" onClick={() => setIsMenuOpen(false)}>{t('nav.about')}</a></li>
+            <li><a href="#funcionalidades" onClick={() => setIsMenuOpen(false)}>{t('nav.features')}</a></li>
+            <li><a href="#brdd" onClick={() => setIsMenuOpen(false)}>BRDD</a></li>
+            <li><a href="#incubadora" onClick={() => setIsMenuOpen(false)}>{t('nav.incubator')}</a></li>
+            <li><a href="#servicos" onClick={() => setIsMenuOpen(false)}>{t('nav.services')}</a></li>
+            <li><a href="#contato" onClick={() => setIsMenuOpen(false)}>{t('nav.contact')}</a></li>
             <li>
               <select 
                 value={language} 
@@ -84,9 +77,6 @@ function App() {
           </ul>
         </div>
       </nav>
-
-      {currentView === 'home' ? (
-        <>
           {/* Hero Section */}
           <header className="hero">
             <div className="hero-bg"></div>
@@ -169,9 +159,9 @@ function App() {
                   <div className="icon">⚡</div>
                   <h3>{t('brdd.async.title')}</h3>
                   <p>{t('brdd.async.desc')}</p>
-                  <button onClick={() => navigateTo('async')} className="btn-secondary" style={{ marginTop: '20px', width: '100%' }}>
+                  <a href="https://brdd-design.github.io/" target="_blank" rel="noreferrer" className="btn-secondary" style={{ marginTop: '20px', width: '100%', display: 'inline-block', textAlign: 'center', boxSizing: 'border-box' }}>
                     {t('brdd.async.view_more')}
-                  </button>
+                  </a>
                 </div>
                 
                 <div className="card glass" style={{ opacity: 0.7 }}>
@@ -282,63 +272,7 @@ function App() {
               </div>
             </div>
           </section>
-        </>
-      ) : (
-        <section className="section" style={{ minHeight: '80vh', paddingTop: '120px' }}>
-          <div className="container">
-            <button onClick={() => navigateTo('home')} className="btn-secondary" style={{ marginBottom: '30px' }}>
-              ← {language === 'pt' ? 'Voltar' : 'Back'}
-            </button>
-            
-            <div className="glass" style={{ padding: '60px', borderRadius: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
-                <div style={{ fontSize: '3rem' }}>⚡</div>
-                <div>
-                  <h1 className="gradient-text" style={{ margin: 0 }}>{t('brdd.async.title')}</h1>
-                  <p style={{ color: '#00ff00', fontWeight: 'bold' }}>● {t('brdd.async.status')}</p>
-                </div>
-              </div>
-              
-              <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '40px' }}>
-                {t('brdd.async.page.subtitle')}
-              </p>
 
-              <div className="cards-grid">
-                <div className="card glass">
-                  <div className="icon">🔍</div>
-                  <h3>{t('brdd.async.features.f1')}</h3>
-                  <p>{t('brdd.async.features.f1.desc')}</p>
-                </div>
-                <div className="card glass">
-                  <div className="icon">🛡️</div>
-                  <h3>{t('brdd.async.features.f2')}</h3>
-                  <p>{t('brdd.async.features.f2.desc')}</p>
-                </div>
-                <div className="card glass">
-                  <div className="icon">🤖</div>
-                  <h3>{t('brdd.async.features.f3')}</h3>
-                  <p>{t('brdd.async.features.f3.desc')}</p>
-                </div>
-              </div>
-
-              <div style={{ marginTop: '60px' }}>
-                <h2>{language === 'pt' ? 'Bibliotecas Disponíveis' : 'Available Libraries'}</h2>
-                <div style={{ display: 'flex', gap: '15px', marginTop: '20px', flexWrap: 'wrap' }}>
-                  <div className="glass" style={{ padding: '15px 25px', borderRadius: '12px' }}>Python (Extends Core)</div>
-                  <div className="glass" style={{ padding: '15px 25px', borderRadius: '12px', opacity: 0.6 }}>.NET (Coming Soon)</div>
-                  <div className="glass" style={{ padding: '15px 25px', borderRadius: '12px', opacity: 0.6 }}>TypeScript (Coming Soon)</div>
-                </div>
-              </div>
-
-              <div style={{ marginTop: '60px', textAlign: 'center' }}>
-                <a href="https://github.com/defol-tech" target="_blank" rel="noreferrer" className="btn-primary large">
-                  {language === 'pt' ? 'Ver no GitHub' : 'View on GitHub'}
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Footer / Contato Integrado */}
       <footer id="contato">
